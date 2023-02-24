@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_application_last/presentation.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'weather_forecast.dart';
+import 'city.dart';
+import 'http_requests.dart';
 
-// ignore: must_be_immutable
 class MySearchDelegate extends SearchDelegate {
+  final Function onchange1;
+  final Function functionToTakeDataseries;
+
   MyHomePage myHomePage = MyHomePage();
   List<String> searchResults = [
     "Elazig",
@@ -102,6 +109,9 @@ class MySearchDelegate extends SearchDelegate {
     "Portland",
     "Sacramento",
   ];
+
+  MySearchDelegate(this.onchange1, this.functionToTakeDataseries);
+
   @override
   List<Widget>? buildActions(BuildContext context) => [
         IconButton(
@@ -139,8 +149,9 @@ class MySearchDelegate extends SearchDelegate {
         return ListTile(
           title: Text(suggestion),
           onTap: () {
-            myHomePage.stateClass.cityApi(suggestion);
-           
+            Request(functionToTakeDataseries).cityApi(suggestion).then((value) {
+              onchange1(value);
+            });
             close(context, null);
           },
         );
