@@ -1,5 +1,4 @@
 class WeatherForecast {
-  final product;
   final List dataseries;
 
   final timepoint;
@@ -15,8 +14,7 @@ class WeatherForecast {
   final prec_type;
 
   WeatherForecast(
-      {required this.product,
-      required this.dataseries,
+      {required this.dataseries,
       required this.timepoint,
       required this.cloudcover,
       required this.seeing,
@@ -30,12 +28,7 @@ class WeatherForecast {
       required this.prec_type});
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
-/*
-Data series listesinin içinde 24 tane item  var burada örnek için her işlemi birinci itemden yaptım 
- */
-
     return WeatherForecast(
-        product: json["product"],
         dataseries: json["dataseries"],
         timepoint: json["dataseries"][0]["timepoint"],
         cloudcover: json["dataseries"][0]["cloudcover"],
